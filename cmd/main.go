@@ -4,13 +4,11 @@ import (
 	"database/sql"
 	"log"
 
-	handler "github.com/jamesdavidyu/ecom/api"
+	"github.com/jamesdavidyu/ecom/cmd/api"
 	"github.com/jamesdavidyu/ecom/db"
 )
 
 func main() {
-	handler.ExportedFunction()
-
 	db, err := db.NewPostgresStorage()
 	if err != nil {
 		log.Fatal(err)
@@ -18,7 +16,7 @@ func main() {
 
 	initStorage(db)
 
-	server := handler.NewAPIServer(":8080", db)
+	server := api.NewAPIServer(":8080", db)
 	if err := server.Run(); err != nil {
 		log.Fatal(err)
 	}
